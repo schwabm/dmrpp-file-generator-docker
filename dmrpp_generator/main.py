@@ -38,7 +38,7 @@ class DMRPPGenerator(Process):
                 break
         return buckets[bucket_type]
 
-    
+
     def upload_file(self, filename):
         """ Upload a local file to s3 if collection payload provided """
         info = self.get_publish_info(filename)

@@ -80,17 +80,18 @@ class DMRPPGenerator(Process):
             granule_id = match(potential_extensions, filename).group(1) if match(potential_extensions, filename) else filename
             if granule_id not in granule_data.keys():
                 granule_data[granule_id] = {'granuleId': granule_id, 'files': []}
-            granule_data[granule_id]['files'].append(
-                {
-                    "path": self.config.get('fileStagingDir'),
-                    "url_path": self.config.get('fileStagingDir'),
-                    "bucket": self.get_bucket(filename, collection.get('files', []),
-                                              buckets)['name'],
-                    "filename": uploaded_file,
-                    "name": filename,
-                    "size": files_sizes.get(filename, 0)
-                }
-            )
+
+                granule_data[granule_id]['files'].append(
+                    {
+                        "path": self.config.get('fileStagingDir'),
+                        "url_path": self.config.get('fileStagingDir'),
+                        "bucket": self.get_bucket(filename, collection.get('files', []),
+                                                  buckets)['name'],
+                        "filename": uploaded_file,
+                        "name": filename,
+                        "size": files_sizes.get(filename, 0)
+                    }
+                )
 
         final_output = list(granule_data.values())
         return {"granules": final_output, "input": uploaded_files}

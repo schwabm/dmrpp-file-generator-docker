@@ -55,8 +55,14 @@ class DMRPPGenerator(Process):
         :return:
         """
         input_files = self.fetch('input_files')
+        print("input_files: ", input_files)
+
         self.output = self.dmrpp_generate(input_files)
+        print("self.output: ", self.output)
+
         uploaded_files = self.upload_output_files()
+        print("uploaded_files: ", uploaded_files)
+
         collection = self.config.get('collection')
         buckets = self.config.get('buckets')
         files_sizes = {}

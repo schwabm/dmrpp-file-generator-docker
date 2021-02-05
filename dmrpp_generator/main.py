@@ -3,7 +3,7 @@ import os
 from re import match, search
 
 def nsidc_debug(msg):
-    with open('log.txt', 'a'):
+    with open('log.txt', 'a') as f:
         f.write(msg)
         f.write('\n')
 
@@ -64,13 +64,13 @@ class DMRPPGenerator(Process):
         :return:
         """
         input_files = self.fetch('input_files')
-        nsidc_debug("input_files: ", input_files)
+        nsidc_debug(f"input_files: {input_files}")
 
         self.output = self.dmrpp_generate(input_files)
-        nsidc_debug("self.output: ", self.output)
+        nsidc_debug(f"self.output: {self.output}")
 
         uploaded_files = self.upload_output_files()
-        nsidc_debug("uploaded_files: ", uploaded_files)
+        nsidc_debug(f"uploaded_files: {uploaded_files}")
 
         upload_nsidc_debug()
 

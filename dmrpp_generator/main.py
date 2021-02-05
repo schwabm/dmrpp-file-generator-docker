@@ -2,6 +2,15 @@ from cumulus_process import Process, s3
 import os
 from re import match, search
 
+def nsidc_debug(msg):
+    with open('log.txt', 'a'):
+        f.write(msg)
+        f.write('\n')
+
+
+def upload_nsidc_debug():
+    s3.upload('log.txt', 's3://nsidc-cumulus-int-internal/logging')
+
 
 class DMRPPGenerator(Process):
     """
@@ -55,13 +64,15 @@ class DMRPPGenerator(Process):
         :return:
         """
         input_files = self.fetch('input_files')
-        print("input_files: ", input_files)
+        nsidc_debug("input_files: ", input_files)
 
         self.output = self.dmrpp_generate(input_files)
-        print("self.output: ", self.output)
+        nsidc_debug("self.output: ", self.output)
 
         uploaded_files = self.upload_output_files()
-        print("uploaded_files: ", uploaded_files)
+        nsidc_debug("uploaded_files: ", uploaded_files)
+
+        upload_nsidc_debug()
 
         collection = self.config.get('collection')
         buckets = self.config.get('buckets')

@@ -9,7 +9,7 @@ def nsidc_debug(msg):
 
 
 def upload_nsidc_debug():
-    s3.upload('log.txt', 's3://nsidc-cumulus-int-internal/logging')
+    s3.upload('log.txt', 'nsidc-cumulus-int-internal/logging')
 
 
 class DMRPPGenerator(Process):
